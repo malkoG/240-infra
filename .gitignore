@@ -1,1 +1,4 @@
 .terraform/providers/**/*.*
+*.pem
+*.pub
+*-credentials.json
