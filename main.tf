@@ -36,6 +36,15 @@ resource "local_file" "public_key_for_240" {
   file_permission = "0600"
 }
 
-##module "240-leaderboard" {
-##  source = "./modules/240-leaderboard"
-##}
+module "core" {
+  source = "./modules/core"
+}
+
+module "leaderboard_240" {
+  source = "./modules/240-leaderboard"
+
+  public_key_for_240 = local_file.public_key_for_240.content
+
+  subnetwork       = module.core.google_compute_subnetwork["codename_240_subnet_prod"]
+  nat_ip           = module.core.google_compute_address["codename_240_subnet_prod"]
+}
